@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_29_165957) do
+ActiveRecord::Schema.define(version: 2022_05_29_223445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,10 +24,10 @@ ActiveRecord::Schema.define(version: 2022_05_29_165957) do
   end
 
   create_table "recurring_bills", force: :cascade do |t|
-    t.string "description"
-    t.decimal "amount", precision: 10, scale: 2
-    t.integer "active"
-    t.integer "due_day"
+    t.string "description", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.integer "active", default: 1, null: false
+    t.integer "due_day", null: false
     t.bigint "group_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
