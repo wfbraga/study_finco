@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_29_223445) do
+ActiveRecord::Schema.define(version: 2022_06_04_170506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,20 @@ ActiveRecord::Schema.define(version: 2022_05_29_223445) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "owner_id", null: false
     t.index ["owner_id"], name: "index_groups_on_owner_id"
+  end
+
+  create_table "installment_purchases", force: :cascade do |t|
+    t.string "description", null: false
+    t.decimal "total_amount", precision: 10, scale: 2, null: false
+    t.decimal "installment_amount", precision: 10, scale: 2, null: false
+    t.integer "installments_quantity", null: false
+    t.integer "current_installment", null: false
+    t.integer "due_day", null: false
+    t.integer "active", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_installment_purchases_on_group_id"
   end
 
   create_table "recurring_bills", force: :cascade do |t|
@@ -43,5 +57,6 @@ ActiveRecord::Schema.define(version: 2022_05_29_223445) do
   end
 
   add_foreign_key "groups", "users", column: "owner_id"
+  add_foreign_key "installment_purchases", "groups"
   add_foreign_key "recurring_bills", "groups"
 end
