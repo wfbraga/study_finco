@@ -16,9 +16,12 @@ gem 'webpacker', '~> 4.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'rspec', '~> 3.5'
   gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
   gem 'rubocop', '~> 1.29', '>= 1.29.1'
+  gem 'shoulda-matchers', '~> 4.0'
   gem 'solargraph', '~> 0.44.3'
 end
 
