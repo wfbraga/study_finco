@@ -6,7 +6,7 @@ RSpec.describe InstallmentPurchase, type: :model do
                             total_amount: 800.75,
                             installments_quantity: 10,
                             due_day: 5,
-                            active: :active,
+                            status: :active,
                             group_id: 1
                             )}
 

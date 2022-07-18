@@ -6,8 +6,8 @@ class InstallmentPurchase < ApplicationRecord
   validates :installments_quantity, presence: true
   validates :current_installment, presence: true
   validates :due_day, presence: true
-  validates :active, presence: true
+  validates :status, presence: true
   validates :group_id, presence: true
 
-  enum active: %i[active on_hold deactivated]
+  enum status: %i[active on_hold deactivated]
 end
