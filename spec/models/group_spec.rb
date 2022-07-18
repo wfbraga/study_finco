@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Group, type: :model do
-  let(:group) { Group.new }
-  let(:user) { User.new(name: 'Base User', email: 'teste@teste.com') }
+  let(:group) { Group.new } # FIXME Create a factory
+  let(:user) { User.new(name: 'Base User', email: 'teste@teste.com') } # FIXME Create a factory
 
   context 'When creating a invalid group' do
     it 'Name cannot be nil or empty' do

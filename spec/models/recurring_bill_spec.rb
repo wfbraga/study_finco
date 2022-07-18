@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe RecurringBill, type: :model do
-  let(:recurring_bills) { RecurringBill.new(
+  let(:recurring_bills) { RecurringBill.new( # FIXME Create a factory
                             description: 'Test description',
                             amount: 100.75,
                             active: :active,

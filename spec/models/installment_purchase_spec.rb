@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe InstallmentPurchase, type: :model do
+  # FIXME To initialize your objects it'd be nice to use factory bot.
+  # I saw that you already added the gem but didn't used.
+  #
+  # Reference:
+  # https://github.com/thoughtbot/factory_bot/blob/master/GETTING_STARTED.md#configure-your-test-suite
   let(:installment_purchase) { InstallmentPurchase.new(
                             description: 'Teste Instalment Purchase',
                             total_amount: 800.75,
