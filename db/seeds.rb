@@ -5,3 +5,38 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+(1..10).each do |id|
+  User.create(
+    name: Faker::Name.name,
+    email: Faker::Internet.unique.email
+  )
+  Group.create(
+    name: Faker::Lorem.word,
+    owner_id: rand(1..id)
+  )
+
+  # Defining ramdomicaly an installment_quantity
+  rand_installments_quantity = rand(3..36)
+
+  # Defining ramdomicaly an total_amount
+  rand_total_amount = rand(100..100000)
+
+  InstallmentPurchase.create(
+    description: Faker::Company.name,
+    total_amount: rand_total_amount,
+    installments_quantity: rand_installments_quantity,
+    installment_amount: rand_total_amount / rand_installments_quantity,
+    current_installment: rand(1..rand_installments_quantity),
+    due_day: rand(1..20),
+    status: %i[active on_hold deactivated].sample,
+    group_id: rand(1..id)
+  )
+
+  RecurringBill.create(
+    description: Faker::Company.name,
+    amount: rand(100..300),
+    active: %i[active deactivated].sample,
+    due_day: rand(1..20),
+    group_id: rand(1..id)
+  )
+end
