@@ -5,5 +5,8 @@ class Group < ApplicationRecord
   has_many :installment_purchases
   has_many :recurring_bills
 
+  has_many :user_groups
+  has_many :users, through: :user_groups
+
   validates :name, presence: true
 end

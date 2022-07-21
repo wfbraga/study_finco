@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-(1..10).each do |id|
+(1..50).each do |id|
   User.create(
     name: Faker::Name.name,
     email: Faker::Internet.unique.email
@@ -37,6 +37,10 @@
     amount: rand(100..300),
     active: %i[active deactivated].sample,
     due_day: rand(1..20),
+    group_id: rand(1..id)
+  )
+  UserGroup.create(
+    user_id: rand(1..id),
     group_id: rand(1..id)
   )
 end

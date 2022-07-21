@@ -8,11 +8,11 @@ RSpec.describe Group, type: :model do
 
   it { is_expected.to belong_to(:owner) }
   it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_presence_of(:owner_id) }
+  it { is_expected.to have_many(:user_groups) }
+  it { is_expected.to have_many(:users) }
 
   context 'When creating a group' do
     it 'must be invalid if the owner_id is from a not valid user' do
-      subject.owner_id = 0
       expect(subject).to be_invalid
     end
 
