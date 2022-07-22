@@ -5,8 +5,11 @@ RSpec.describe Account, type: :model do
   let(:user) { build(:user) }
   let(:group) { build(:group) }
 
-  it { is_expected.to belong_to(:owner) }
+  it { is_expected.to belong_to(:owner).class_name('User').with_foreign_key('owner_id') }
   it { is_expected.to belong_to(:group) }
+
+  it { is_expected.to have_many(:operations) }
+
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:kind) }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_21_233953) do
+ActiveRecord::Schema.define(version: 2022_07_22_155800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(version: 2022_07_21_233953) do
     t.index ["group_id"], name: "index_installment_purchases_on_group_id"
   end
 
+  create_table "operations", force: :cascade do |t|
+    t.string "description"
+    t.integer "kind", null: false
+    t.bigint "account_id", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_operations_on_account_id"
+  end
+
   create_table "recurring_bills", force: :cascade do |t|
     t.string "description", null: false
     t.decimal "amount", precision: 10, scale: 2, null: false
@@ -81,6 +91,7 @@ ActiveRecord::Schema.define(version: 2022_07_21_233953) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "installment_purchases", "groups"
+  add_foreign_key "operations", "accounts"
   add_foreign_key "recurring_bills", "groups"
   add_foreign_key "user_groups", "groups"
   add_foreign_key "user_groups", "users"

@@ -6,7 +6,7 @@ RSpec.describe Group, type: :model do
   subject { build(:group) }
   let(:user) { build(:user) }
 
-  it { is_expected.to belong_to(:owner) }
+  it { is_expected.to belong_to(:owner).class_name('User').with_foreign_key('owner_id') }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to have_many(:user_groups) }
   it { is_expected.to have_many(:users) }

@@ -52,4 +52,11 @@
     balance: rand(0..1000),
     owner_id: rand(1..id)
   )
+
+  Operation.create(
+    description: Faker::Lorem.paragraph,
+    kind: %i[debit credit].sample,
+    account_id: rand(1..id),
+    amount: rand(1..100_000)
+  )
 end
