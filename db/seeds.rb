@@ -39,8 +39,17 @@
     due_day: rand(1..20),
     group_id: rand(1..id)
   )
+
   UserGroup.create(
     user_id: rand(1..id),
     group_id: rand(1..id)
+  )
+
+  Account.create(
+    name: Faker::Company.name,
+    kind: %i[cash savings cheking_account creditcard investment].sample,
+    group_id: rand(1..id),
+    balance: rand(0..1000),
+    owner_id: rand(1..id)
   )
 end
