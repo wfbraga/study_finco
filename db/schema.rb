@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_22_155800) do
+ActiveRecord::Schema.define(version: 2022_07_22_225402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_debits", force: :cascade do |t|
+    t.string "bank", null: false
+    t.string "branch"
+    t.string "number", null: false
+    t.decimal "credit_limit", precision: 10, scale: 2, default: "0.0", null: false
+    t.string "owner_name"
+    t.bigint "account_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "owner_id", null: false
+    t.index ["account_id"], name: "index_account_debits_on_account_id"
+    t.index ["owner_id"], name: "index_account_debits_on_owner_id"
+  end
 
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
@@ -87,6 +101,8 @@ ActiveRecord::Schema.define(version: 2022_07_22_155800) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "account_debits", "accounts"
+  add_foreign_key "account_debits", "users", column: "owner_id"
   add_foreign_key "accounts", "groups"
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "groups", "users", column: "owner_id"

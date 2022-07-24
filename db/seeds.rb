@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+print 'Seeding the Bank'
+
 (1..50).each do |id|
   User.create(
     name: Faker::Name.name,
@@ -59,4 +61,16 @@
     account_id: rand(1..id),
     amount: rand(1..100_000)
   )
+  account = Account.find_by(id: rand(1..id))
+  AccountDebit.create(
+    bank: Faker::Company.name,
+    branch: rand(999..10_000).to_s,
+    number: "#{rand(11_000..100_000)}-#{%i[a f g h t y].sample}",
+    credit_limit: rand(0..10_000),
+    account_id: account.id,
+    owner_name: account.owner.name,
+    owner_id: account.owner.id
+  )
+  print '.'
 end
+print "!\nFinished succefuly!\n"
