@@ -61,6 +61,7 @@ print 'Seeding the Bank'
     account_id: rand(1..id),
     amount: rand(1..100_000)
   )
+
   account = Account.find_by(id: rand(1..id))
   AccountDebit.create(
     bank: Faker::Company.name,
@@ -69,6 +70,17 @@ print 'Seeding the Bank'
     credit_limit: rand(0..10_000),
     account_id: account.id,
     owner_name: account.owner.name,
+    owner_id: account.owner.id
+  )
+
+  AccountCreditCard.create(
+    bank: Faker::Company.name,
+    brand: Faker::Commerce.brand,
+    last_digits: rand(1000..9999),
+    credit_limit: rand(500..10_000),
+    owner_name: account.owner.name,
+    due_day: rand(1..14),
+    expires_at: Time.zone.now + 1.year,
     owner_id: account.owner.id
   )
   print '.'
