@@ -81,7 +81,17 @@ print 'Seeding the Bank'
     owner_name: account.owner.name,
     due_day: rand(1..14),
     expires_at: Time.zone.now + 1.year,
-    owner_id: account.owner.id
+    owner_id: account.owner.id,
+    account_id: account.id,
+  )
+
+  AccountObjective.create(
+    target_name: Faker::Commerce.product_name,
+    target_amount: Faker::Commerce.price,
+    acomplish_at: Time.zone.now + 1.year,
+    owner_name: account.owner.name,
+    owner_id: account.owner.id,
+    account_id: account.id
   )
   print '.'
 end
