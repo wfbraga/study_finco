@@ -2,7 +2,6 @@
 
 FactoryBot.define do
   factory :group do
-    sequence(:name) { |n| "Grupo de Contas #{n}"}
-    owner_id { rand(100) }
+    name { Faker::Lorem.word }
   end
 end

@@ -1,24 +1,31 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
-RSpec.describe Group, type: :model do
-  subject { build(:group) }
+RSpec.describe Account, type: :model do
+  subject { build(:account) }
   let(:user) { build(:user) }
+  let(:group) { build(:group) }
 
   it { is_expected.to belong_to(:owner).class_name('User').with_foreign_key('owner_id') }
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to have_many(:user_groups) }
-  it { is_expected.to have_many(:users) }
+  it { is_expected.to belong_to(:group) }
 
-  context 'When creating a group' do
+  it { is_expected.to have_many(:operations) }
+
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:kind) }
+
+  context 'When creating an account' do
     it 'must be invalid if the owner_id is from a not valid user' do
       expect(subject).to be_invalid
     end
 
     it 'must be valid if the owner_id is from valid user' do
       user.save!
+      group.owner = user
+      group.save!
+
       subject.owner_id = user.id
+      subject.group_id = group.id
+
       expect(subject).to be_valid
     end
   end
