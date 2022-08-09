@@ -1,48 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe InstallmentPurchase, type: :model do
-  let(:installment_purchase) { InstallmentPurchase.new(
-                            description: 'Teste Instalment Purchase',
-                            total_amount: 800.75,
-                            installments_quantity: 10,
-                            due_day: 5,
-                            active: :active,
-                            group_id: 1
-                            )}
+  subject { build(:installment_purchase) }
+  let(:user) { build(:user) }
+  let(:group) { build(:group) }
 
-  context 'When creating an invalid installment purchase' do
-    it 'description can not be empty' do
-      installment_purchase.description = ''
-      expect(installment_purchase).to be_invalid
-    end
+  it { is_expected.to validate_presence_of(:description) }
+  it { is_expected.to validate_presence_of(:total_amount) }
+  it { is_expected.to validate_presence_of(:installments_quantity) }
+  it { is_expected.to validate_presence_of(:current_installment) }
+  it { is_expected.to validate_presence_of(:due_day) }
+  it { is_expected.to validate_presence_of(:group_id) }
 
-    it 'total amount can not be empity' do
-      installment_purchase.total_amount = nil
-      expect(installment_purchase).to be_invalid
+  context 'When creating an installment purchase' do
+    it 'must be invalid if the group_id is from a not valid user' do
+      subject.group_id = 0
+      expect(subject).to be_invalid
     end
-
-    it 'installments quantity can no be empity' do
-      installment_purchase.installments_quantity = nil
-      expect(installment_purchase).to be_invalid
-    end
-
-    it 'current installment can not be empity' do
-      installment_purchase.current_installment = nil
-      expect(installment_purchase).to be_invalid
-    end
-
-    it 'due day can not be empity' do
-      installment_purchase.due_day = nil
-      expect(installment_purchase).to be_invalid
-    end
-
-    it 'group_it can not be empity' do
-      installment_purchase.group_id = nil
-      expect(installment_purchase).to be_invalid
-    end
-    it 'group_it can not be o a not exintent grou' do
-      installment_purchase.group_id = 10
-      expect(installment_purchase).to be_invalid
+    it 'must be valid if the owner_id is from valid user' do
+      user.save!
+      group.owner_id = user.id
+      group.save!
+      subject.group_id = group.id
+      expect(subject).to be_valid
     end
   end
 end
