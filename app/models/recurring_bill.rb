@@ -7,5 +7,5 @@ class RecurringBill < ApplicationRecord
   validates :due_day, presence: true, numericality: { greater_than: 0, lower_than: 31 }
   validates :group_id, presence: true
 
-  enum active: %i[active on_hold deactivated]
+  enum active: %i[active deactivated]
 end
